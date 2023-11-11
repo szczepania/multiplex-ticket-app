@@ -11,6 +11,13 @@ CREATE TABLE SCREENINGROOMS(
     columns INTEGER NOT NULL
 );
 
+CREATE TABLE SCREENINGS(
+    id SERIAL PRIMARY KEY,
+    movie_id INTEGER NOT NULL,
+    screening_room_id INTEGER NOT NULL,
+    screening_time TIME NOT NULL
+);
+
 INSERT INTO
     MOVIES (id, title, duration)
 VALUES
@@ -30,3 +37,16 @@ VALUES
     (1, 'Room 1', 5, 5),
     (2, 'Room 2', 5, 5),
     (3, 'Room 3', 5, 5);
+
+INSERT INTO
+    SCREENINGS (id, movie_id, screening_room_id, screening_time)
+VALUES
+    (1, 1, 1, '2022-01-04 10:00:00'),
+    (2, 2, 1, '2022-01-04 13:00:00'),
+    (3, 3, 1, '2022-01-04 15:00:00'),
+    (4, 4, 2, '2022-01-04 10:00:00'),
+    (5, 5, 2, '2022-01-04 13:00:00'),
+    (6, 6, 2, '2022-01-04 15:00:00'),
+    (7, 7, 3, '2022-01-04 10:00:00'),
+    (8, 8, 3, '2022-01-04 13:00:00'),
+    (9, 9, 3, '2022-01-04 15:00:00');
