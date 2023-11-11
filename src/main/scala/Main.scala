@@ -5,7 +5,7 @@ import connection.DatabaseConnector
 
 import scala.concurrent.{ExecutionContext, Future}
 import routes.Routes
-import services.MoviesService
+import services.{MoviesService, ScreeningRoomsService}
 
 import scala.io.StdIn
 
@@ -16,7 +16,8 @@ object Main {
 
   val dbConnector = new DatabaseConnector()
   val moviesService = new MoviesService(dbConnector)
-  val routes = new Routes(moviesService)
+  val screeningRoomsService = new ScreeningRoomsService(dbConnector)
+  val routes = new Routes(moviesService, screeningRoomsService)
   val config = new Config()
 
   val bind: Future[Http.ServerBinding] =

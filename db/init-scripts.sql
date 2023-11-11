@@ -4,6 +4,13 @@ CREATE TABLE MOVIES(
     duration TIME NOT NULL
 );
 
+CREATE TABLE SCREENINGROOMS(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    rows INTEGER NOT NULL,
+    columns INTEGER NOT NULL
+);
+
 INSERT INTO
     MOVIES (id, title, duration)
 VALUES
@@ -15,4 +22,11 @@ VALUES
     (6, 'From Dusk Till Dawn', '1:48'),
     (7, 'Jackie Brown', '2:38'),
     (8, 'Grind House', '3:11'),
-    (9, 'Inglourious Basterds', '2:33')
+    (9, 'Inglourious Basterds', '2:33');
+
+INSERT INTO
+    SCREENINGROOMS (id, name, rows, columns)
+VALUES
+    (1, 'Room 1', 5, 5),
+    (2, 'Room 2', 5, 5),
+    (3, 'Room 3', 5, 5);

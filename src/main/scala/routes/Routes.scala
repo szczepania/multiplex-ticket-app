@@ -2,14 +2,15 @@ package routes
 
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
-import services.MoviesService
+import services.{MoviesService, ScreeningRoomsService}
 
 import scala.concurrent.ExecutionContext
 
-class Routes(movies: MoviesService)(implicit
-    executionContext: ExecutionContext
+class Routes(movies: MoviesService, screeningRooms: ScreeningRoomsService)(
+    implicit executionContext: ExecutionContext
 ) {
   val moviesRouter = new MovieRoute(movies)
+  val screeningRoomsRouter = new ScreeningRoomsRoute(screeningRooms)
 
   val route: Route =
     concat(
@@ -20,7 +21,8 @@ class Routes(movies: MoviesService)(implicit
       },
       pathPrefix("api") {
         concat(
-          moviesRouter.route
+          moviesRouter.route,
+          screeningRoomsRouter.route
         )
       }
     )

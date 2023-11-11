@@ -10,5 +10,6 @@ import scala.concurrent.Future
 class MoviesService(val databaseConnector: DatabaseConnector)
     extends MovieDataTable {
 
-  def listMovies: Future[Seq[Movies]] = databaseConnector.db.run(moviesTable.result)
+  def listMovies: Future[Seq[Movies]] =
+    databaseConnector.db.run(moviesTable.result)
 }
