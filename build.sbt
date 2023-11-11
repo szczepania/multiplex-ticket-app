@@ -4,6 +4,10 @@ val akkaVersion = "2.8.0"
 val akkaHttpVersion = "10.5.0"
 val akkaHttpJsonSerializersVersion = "1.39.2"
 val circeVersion = "0.14.5"
+val slickVersion = "3.4.1"
+val slickPgVersion = "0.21.1"
+val postgresVersion = "42.5.4"
+val pureconfigVersion = "0.17.4"
 
 lazy val root = (project in file("."))
   .settings(
@@ -19,5 +23,11 @@ libraryDependencies ++= Seq(
   "de.heikoseeberger" %% "akka-http-circe" % akkaHttpJsonSerializersVersion,
   "io.circe" %% "circe-core" % circeVersion,
   "io.circe" %% "circe-generic" % circeVersion,
-  "io.circe" %% "circe-parser" % circeVersion
+  "io.circe" %% "circe-parser" % circeVersion,
+  "com.typesafe.slick" %% "slick" % slickVersion,
+  "org.postgresql" % "postgresql" % postgresVersion,
+  "com.typesafe.slick" %% "slick-hikaricp" % slickVersion,
+  "com.github.tminglei" %% "slick-pg" % slickPgVersion,
+  "com.github.tminglei" %% "slick-pg_play-json" % slickPgVersion,
+  "com.github.pureconfig" %% "pureconfig" % pureconfigVersion
 )

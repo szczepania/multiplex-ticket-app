@@ -1,30 +1,33 @@
-import akka.actor.typed.ActorSystem
-import akka.actor.typed.scaladsl.Behaviors
+import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
-import akka.http.scaladsl.server.Route
-import akka.http.scaladsl.server.Directives._
-import de.heikoseeberger.akkahttpcirce.FailFastCirceSupport
-import model.{ReservationService, ReservationStorage}
+import config.Config
+import connection.DatabaseConnector
 
-import java.util.UUID
+import scala.concurrent.{ExecutionContext, Future}
+import routes.Routes
+import services.MoviesService
 
-object Main extends FailFastCirceSupport {
-  import io.circe.generic.auto._
+import scala.io.StdIn
 
-  implicit val system = ActorSystem(Behaviors.empty, "Main")
+object Main {
 
-  private val route: Route = (path("reservations") & post) {
-    entity(as[ReservationService]) { reservation: ReservationService =>
-      complete(
-        ReservationStorage(
-          UUID.randomUUID().toString(),
-          System.currentTimeMillis()
-        )
-      )
-    }
-  }
+  implicit val system: ActorSystem = ActorSystem()
+  implicit val executor: ExecutionContext = system.dispatcher
+
+  val dbConnector = new DatabaseConnector()
+  val moviesService = new MoviesService(dbConnector)
+  val routes = new Routes(moviesService)
+  val config = new Config()
+
+  val bind: Future[Http.ServerBinding] =
+    Http().newServerAt(config.host, config.port).bind(routes.route)
 
   def main(args: Array[String]): Unit = {
-    Http().newServerAt("localhost", 8081).bind(route)
+    StdIn.readLine()
+
+    for {
+      binding <- bind
+      _ <- binding.unbind()
+    } yield system.terminate()
   }
 }
