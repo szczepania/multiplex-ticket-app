@@ -20,6 +20,7 @@
 /src/intellij*/*.iws
 **/.cache
 /.idea
+/.vscode
 /.settings
 
 /.vscode
