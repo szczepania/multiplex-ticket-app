@@ -12,4 +12,9 @@ class MoviesService(val databaseConnector: DatabaseConnector)
 
   def listMovies: Future[Seq[Movies]] =
     databaseConnector.db.run(moviesTable.result)
+
+  def getMovieById(id: Long): Future[Option[Movies]] = {
+    val query = moviesTable.filter(_.id === id)
+    databaseConnector.db.run(query.result.headOption)
+  }
 }

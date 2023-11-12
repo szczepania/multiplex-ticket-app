@@ -12,4 +12,10 @@ class ScreeningRoomsService(val databaseConnector: DatabaseConnector)
 
   def listRooms: Future[Seq[ScreeningRooms]] =
     databaseConnector.db.run(screeningRoomsTable.result)
+
+  def getRoomById(id: Long): Future[Option[ScreeningRooms]] =
+    databaseConnector.db.run(
+      screeningRoomsTable.filter(_.id === id).result.headOption
+    )
+
 }

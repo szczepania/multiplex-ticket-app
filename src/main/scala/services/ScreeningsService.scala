@@ -13,4 +13,9 @@ class ScreeningsService(val databaseConnector: DatabaseConnector)
   def listScreenings: Future[Seq[Screenings]] =
     databaseConnector.db.run(screeningsTable.result)
 
+  def getScreeningById(id: Long): Future[Option[Screenings]] =
+    databaseConnector.db.run(
+      screeningsTable.filter(_.id === id).result.headOption
+    )
+
 }

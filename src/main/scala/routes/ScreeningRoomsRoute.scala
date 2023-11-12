@@ -15,10 +15,17 @@ class ScreeningRoomsRoute(screeningRooms: ScreeningRoomsService)(implicit
 ) extends FailFastCirceSupport {
 
   val route: Route = pathPrefix("screeningrooms") {
-    pathEndOrSingleSlash {
-      get {
-        complete(screeningRooms.listRooms.map(_.asJson))
+    concat(
+      pathEndOrSingleSlash {
+        get {
+          complete(screeningRooms.listRooms.map(_.asJson))
+        }
+      },
+      path(LongNumber) { id =>
+        get {
+          complete(screeningRooms.getRoomById(id).map(_.asJson))
+        }
       }
-    }
+    )
   }
 }

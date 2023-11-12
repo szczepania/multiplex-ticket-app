@@ -14,10 +14,17 @@ class MovieRoute(movieService: MoviesService)(implicit
 ) extends FailFastCirceSupport {
 
   val route: Route = pathPrefix("movies") {
-    pathEndOrSingleSlash {
-      get {
-        complete(movieService.listMovies.map(_.asJson))
+    concat(
+      pathEndOrSingleSlash {
+        get {
+          complete(movieService.listMovies.map(_.asJson))
+        }
+      },
+      path(LongNumber) { id =>
+        get {
+          complete(movieService.getMovieById(id).map(_.asJson))
+        }
       }
-    }
+    )
   }
 }
