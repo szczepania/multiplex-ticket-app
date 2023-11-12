@@ -6,7 +6,6 @@ import de.heikoseeberger.akkahttpcirce.FailFastCirceSupport
 import io.circe.generic.auto._
 import io.circe.syntax._
 import services.MoviesService
-
 import scala.concurrent.ExecutionContext
 
 class MovieRoute(movieService: MoviesService)(implicit

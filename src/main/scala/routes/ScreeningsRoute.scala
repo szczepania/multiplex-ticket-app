@@ -1,7 +1,6 @@
 package routes
 
 import services.ScreeningsService
-
 import scala.concurrent.ExecutionContext
 import de.heikoseeberger.akkahttpcirce.FailFastCirceSupport
 import io.circe.generic.auto._
