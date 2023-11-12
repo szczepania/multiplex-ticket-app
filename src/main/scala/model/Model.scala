@@ -1,6 +1,7 @@
 package model
 
-import java.time.LocalTime
+import java.time.{LocalTime, LocalDateTime}
+import akka.protobufv3.internal.Value
 
 final case class Movies(id: Long, title: String, duration: LocalTime)
 
@@ -12,3 +13,7 @@ final case class Screenings(
     screeningRoomId: Long,
     screeningTime: LocalTime
 )
+
+final case class User(name: String, surname: String)
+
+final case class Seats(id: Long, reservationId: Long, row: Int, columnNumber: Int)
