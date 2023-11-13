@@ -24,4 +24,12 @@ class SeatsServiceTest extends AnyFlatSpec with Matchers {
       seat should not be empty
     }
   }
+
+  it should "check seat availability" in {
+    val result = seatsService.checkSeatAvailability(1)
+
+    result.map { seats =>
+      seats should not be empty
+    }
+  }
 }

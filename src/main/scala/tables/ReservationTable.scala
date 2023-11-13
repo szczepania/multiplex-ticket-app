@@ -1,7 +1,7 @@
 package tables
 
 import connection.DatabaseConnector
-import model.Reservation
+import model.Reservations
 import slick.jdbc.PostgresProfile.api._
 import tables.ScreeningsDataTable
 import java.time.LocalDateTime
@@ -11,7 +11,7 @@ trait ReservationsDataTable {
   val databaseConnector: DatabaseConnector
 
   class ReservationsTable(taq: Tag)
-      extends Table[Reservation](taq, "reservations") {
+      extends Table[Reservations](taq, "reservations") {
 
     def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
 
@@ -24,7 +24,7 @@ trait ReservationsDataTable {
     def time = column[LocalDateTime]("time")
 
     override def * =
-      (id, username, usersurname, screeningId, time).<>(Reservation.tupled, Reservation.unapply)
+      (id, username, usersurname, screeningId, time).<>(Reservations.tupled, Reservations.unapply)
 
   }
 

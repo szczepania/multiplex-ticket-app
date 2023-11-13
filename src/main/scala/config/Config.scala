@@ -16,17 +16,27 @@ class Config {
     .map(err => new ConfigReaderException[Config](err))
     .toTry
 
-  val host = extractConfig.get.httpConnection.host
-  val port = extractConfig.get.httpConnection.port
+  val httpConnectionConfig = extractConfig.get.httpConnection
+  val host = httpConnectionConfig.host
+  val port = httpConnectionConfig.port
 
-  val prices = extractConfig.get.prices
+  val reservationConfig = extractConfig.get.reservation
+
+  val prices = reservationConfig.prices
   val adultPrice = prices.adult
   val childPrice = prices.child
   val studentPrice = prices.student
+
+  val bookingTimeInMinutes = reservationConfig.bookingTimeInMinutes
 }
 
-case class ServiceConf(httpConnection: HttpConnection, prices: Prices)
+final case class ServiceConf(
+    httpConnection: HttpConnection,
+    reservation: ReservationConfig
+)
 
-case class HttpConnection(host: String, port: Int)
+final case class ReservationConfig(bookingTimeInMinutes: Int, prices: Prices)
 
-case class Prices(adult: Double, child: Double, student: Double)
+final case class HttpConnection(host: String, port: Int)
+
+final case class Prices(adult: Double, child: Double, student: Double)

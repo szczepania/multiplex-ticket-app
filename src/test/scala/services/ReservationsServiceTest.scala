@@ -26,4 +26,25 @@ class ReservationsServiceTest extends AnyFlatSpec with Matchers {
     }
   }
 
+  it should "check reservation time correctly" in {
+    val screeningTime =
+      LocalDateTime.now.plusHours(1)
+    val reservationTime = LocalDateTime.now
+
+    val result =
+      reservationsService.checkReservationTime(screeningTime, reservationTime)
+
+    result shouldBe true
+  }
+
+  it should "return false for late reservations" in {
+    val screeningTime = LocalDateTime.now
+    val reservationTime = LocalDateTime.now.plusMinutes(1)
+
+    val result =
+      reservationsService.checkReservationTime(screeningTime, reservationTime)
+
+    result shouldBe false
+  }
+
 }
