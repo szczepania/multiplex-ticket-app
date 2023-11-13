@@ -4,7 +4,7 @@ import connection.DatabaseConnector
 import model.Reservation
 import slick.jdbc.PostgresProfile.api._
 import tables.ScreeningsDataTable
-import java.time.LocalTime
+import java.time.LocalDateTime
 
 trait ReservationsDataTable {
 
@@ -21,7 +21,7 @@ trait ReservationsDataTable {
 
     def screeningId = column[Long]("screening_id")
 
-    def time = column[LocalTime]("time")
+    def time = column[LocalDateTime]("time")
 
     override def * =
       (id, username, usersurname, screeningId, time).<>(Reservation.tupled, Reservation.unapply)

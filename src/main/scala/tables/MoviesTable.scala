@@ -16,9 +16,7 @@ trait MovieDataTable {
 
     def title = column[String]("title")
 
-    def duration = column[LocalTime]("duration")
-
-    override def * = (id, title, duration).<>(Movies.tupled, Movies.unapply)
+    override def * = (id, title).<>(Movies.tupled, Movies.unapply)
 
   }
 

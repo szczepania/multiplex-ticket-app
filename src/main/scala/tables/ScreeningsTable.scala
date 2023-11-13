@@ -6,6 +6,7 @@ import slick.jdbc.PostgresProfile.api._
 import slick.lifted.TableQuery
 import tables.{MovieDataTable, ScreeningRoomsDataTable}
 import java.time.LocalTime
+import java.time.LocalDateTime
 
 trait ScreeningsDataTable extends MovieDataTable with ScreeningRoomsDataTable {
 
@@ -22,7 +23,7 @@ trait ScreeningsDataTable extends MovieDataTable with ScreeningRoomsDataTable {
 
     def screeningRoomId = column[Long]("screening_room_id")
 
-    def screeningTime = column[LocalTime]("screening_time")
+    def screeningTime = column[LocalDateTime]("screening_time")
 
     override def * =
       (id, movieId, screeningRoomId, screeningTime).<>(

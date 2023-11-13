@@ -7,6 +7,7 @@ import io.circe.generic.auto._
 import io.circe.syntax._
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
+import java.time.LocalDateTime
 
 class ScreeningsRoute(screeningsService: ScreeningsService)(implicit
     executionContext: ExecutionContext
@@ -22,6 +23,15 @@ class ScreeningsRoute(screeningsService: ScreeningsService)(implicit
       path(LongNumber) { id =>
         get {
           complete(screeningsService.getScreeningById(id).map(_.asJson))
+        }
+      },
+      path("time") {
+        parameters("start".as[String], "end".as[String]) { (start, end) =>
+          complete(
+            screeningsService
+              .listScreeningsInTimeInterval(LocalDateTime.parse(start), LocalDateTime.parse(end))
+              .map(_.asJson)
+          )
         }
       }
     )

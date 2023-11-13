@@ -26,6 +26,10 @@ class ScreeningsRouteTest
       Get("/screenings/1") ~> screeningsRoute.route ~> check {
         status shouldBe StatusCodes.OK
       }
+
+      Get("/screenings/time?start=2022-01-04T10:00:00&end=2022-01-04T23:59:59") ~> screeningsRoute.route ~> check {
+        status shouldBe StatusCodes.OK
+      }
     }
   }
 }
