@@ -8,6 +8,7 @@ import routes.Routes
 import services.{MoviesService, ScreeningRoomsService, ScreeningsService, SeatsService}
 
 import scala.io.StdIn
+import services.ReservationsService
 
 object Main {
 
@@ -21,8 +22,9 @@ object Main {
   val screeningRoomsService = new ScreeningRoomsService(dbConnector)
   val screeningsService = new ScreeningsService(dbConnector)
   val seatsService = new SeatsService(dbConnector)
+  val reservationsService = new ReservationsService(dbConnector)
 
-  val routes = new Routes(moviesService, screeningRoomsService, screeningsService, seatsService)
+  val routes = new Routes(moviesService, screeningRoomsService, screeningsService, seatsService, reservationsService)
 
   val bind: Future[Http.ServerBinding] =
     Http().newServerAt(config.host, config.port).bind(routes.route)

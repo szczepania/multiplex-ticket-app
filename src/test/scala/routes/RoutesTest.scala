@@ -3,7 +3,7 @@ package routes
 import akka.http.scaladsl.testkit.ScalatestRouteTest
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-import services.{MoviesService, ScreeningRoomsService, ScreeningsService, SeatsService}
+import services.{MoviesService, ScreeningRoomsService, ScreeningsService, SeatsService, ReservationsService}
 import connection.DatabaseConnector
 import scala.concurrent.ExecutionContext
 import akka.http.scaladsl.model.StatusCodes
@@ -16,7 +16,8 @@ class RoutesTest extends AnyWordSpec with Matchers with ScalatestRouteTest {
       val screeningService = new ScreeningsService(databaseConnector)
       val screeningRoomService = new ScreeningRoomsService(databaseConnector)
       val seatService = new SeatsService(databaseConnector)
-      val routes = new Routes(movieService, screeningRoomService, screeningService, seatService)(ExecutionContext.global)
+      val reservationsService = new ReservationsService(databaseConnector)
+      val routes = new Routes(movieService, screeningRoomService, screeningService, seatService, reservationsService)(ExecutionContext.global)
 
       Get("/healthcheck") ~> routes.route ~> check {
         status shouldBe StatusCodes.OK

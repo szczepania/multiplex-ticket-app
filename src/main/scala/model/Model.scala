@@ -14,6 +14,6 @@ final case class Screenings(
     screeningTime: LocalTime
 )
 
-final case class User(name: String, surname: String)
-
 final case class Seats(id: Long, reservationId: Long, row: Int, columnNumber: Int)
+
+final case class Reservation(id: Long, username: String, usersurname: String, screeningId: Long, time: LocalTime)

@@ -25,6 +25,14 @@ CREATE TABLE SEATS(
     column_number INTEGER NOT NULL
 );
 
+CREATE TABLE RESERVATIONS(
+    id SERIAL PRIMARY KEY,
+    user_name VARCHAR(100) NOT NULL,
+    user_surname VARCHAR(100) NOT NULL,
+    screening_id INTEGER NOT NULL,
+    time TIME NOT NULL
+);
+
 INSERT INTO
     MOVIES (id, title, duration)
 VALUES
@@ -81,3 +89,16 @@ VALUES
     (18, 4, 4, 1),
     (19, 4, 4, 2),
     (20, 4, 4, 3);
+
+INSERT INTO
+    RESERVATIONS (id, user_name, user_surname, screening_id, time)
+VALUES
+    (1, 'John', 'Doe', 1, '2022-01-04 10:00:00'),
+    (2, 'John', 'Doe', 2, '2022-01-04 13:00:00'),
+    (3, 'John', 'Doe', 3, '2022-01-04 15:00:00'),
+    (4, 'John', 'Doe', 4, '2022-01-04 10:00:00'),
+    (5, 'John', 'Doe', 5, '2022-01-04 13:00:00'),
+    (6, 'John', 'Doe', 6, '2022-01-04 15:00:00'),
+    (7, 'John', 'Doe', 7, '2022-01-04 10:00:00'),
+    (8, 'John', 'Doe', 8, '2022-01-04 13:00:00'),
+    (9, 'John', 'Doe', 9, '2022-01-04 15:00:00');
