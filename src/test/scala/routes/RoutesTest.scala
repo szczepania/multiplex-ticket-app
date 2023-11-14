@@ -16,7 +16,7 @@ class RoutesTest extends AnyWordSpec with Matchers with ScalatestRouteTest {
       val screeningService = new ScreeningsService(databaseConnector)
       val screeningRoomService = new ScreeningRoomsService(databaseConnector)
       val seatService = new SeatsService(databaseConnector)
-      val reservationsService = new ReservationsService(databaseConnector)
+      val reservationsService = new ReservationsService(databaseConnector, screeningService, seatService)
       val routes = new Routes(movieService, screeningRoomService, screeningService, seatService, reservationsService)(ExecutionContext.global)
 
       Get("/healthcheck") ~> routes.route ~> check {

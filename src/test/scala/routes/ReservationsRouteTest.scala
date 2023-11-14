@@ -7,15 +7,22 @@ import services.ReservationsService
 import connection.DatabaseConnector
 import scala.concurrent.ExecutionContext
 import akka.http.scaladsl.model.StatusCodes
+import services.{ScreeningsService, SeatsService}
 
 class ReservationsRouteTest
     extends AnyWordSpec
     with Matchers
     with ScalatestRouteTest {
-  "ReservationsRoute" should {
+  "ReservationsRoute" should {  
     "return OK for GET requests to the reservations path" in {
       val databaseConnector = new DatabaseConnector()
-      val reservationsService = new ReservationsService(databaseConnector)
+      val screeningService = new ScreeningsService(databaseConnector)
+      val seatService = new SeatsService(databaseConnector)
+      val reservationsService = new ReservationsService(
+        databaseConnector,
+        screeningService,
+        seatService
+      )
       val reservationsRoute =
         new ReservationsRoute(reservationsService)(ExecutionContext.global)
 

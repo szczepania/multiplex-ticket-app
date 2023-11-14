@@ -5,13 +5,15 @@ import org.scalatest.matchers.should.Matchers
 import java.time.LocalDateTime
 import scala.concurrent.ExecutionContext.Implicits.global
 import connection.DatabaseConnector
-import model.Movies
 import java.time.LocalDate
-import model.Screenings
+import model.{BookedSeat, Screenings, Movies, Reservation}
 
 class ReservationsServiceTest extends AnyFlatSpec with Matchers {
   val databaseConnector = new DatabaseConnector()
-  val reservationsService = new ReservationsService(databaseConnector)
+  val screeningService = new ScreeningsService(databaseConnector)
+  val seatsService = new SeatsService(databaseConnector)
+  val reservationsService =
+    new ReservationsService(databaseConnector, screeningService, seatsService)
 
   "ReservationsService" should "list all reservations" in {
     val result = reservationsService.listReservations
@@ -101,6 +103,26 @@ class ReservationsServiceTest extends AnyFlatSpec with Matchers {
         screening.title shouldBe movie
       })
     })
+  }
+
+  it should "make reservation correctly" in {
+    val seats =
+      Seq(BookedSeat(1, 1, 1L, "adult"), BookedSeat(1, 2, 2L, "child"))
+    val name = "John"
+    val surname = "Doe"
+
+    val result = reservationsService.makeReservation(
+      new Reservation(1, name, surname, seats)
+    )
+
+    result.map {
+      case Right(summary) =>
+        summary.name shouldBe name
+        summary.surname shouldBe surname
+        summary.seats shouldBe seats
+      case Left(error) =>
+        fail(s"Expected a successful reservation, but got an error: $error")
+    }
   }
 
 }

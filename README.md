@@ -52,6 +52,9 @@ docker-compose down
 
 - **GET** http://localhost:8081/api/screenings/time?start=${startTime}&end=${endTime}
 
+- **POST** http://localhost:8081/api/reservations
+
+
 ## Technologies and tools used
 
 - Scala

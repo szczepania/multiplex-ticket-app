@@ -22,7 +22,7 @@ object Main {
   val screeningRoomsService = new ScreeningRoomsService(dbConnector)
   val screeningsService = new ScreeningsService(dbConnector)
   val seatsService = new SeatsService(dbConnector)
-  val reservationsService = new ReservationsService(dbConnector)
+  val reservationsService = new ReservationsService(dbConnector, screeningsService, seatsService)
 
   val routes = new Routes(moviesService, screeningRoomsService, screeningsService, seatsService, reservationsService)
 
