@@ -26,12 +26,17 @@ class ScreeningsRoute(screeningsService: ScreeningsService)(implicit
         }
       },
       path("time") {
-        parameters("start".as[String], "end".as[String]) { (start, end) =>
-          complete(
-            screeningsService
-              .listScreeningsInTimeInterval(LocalDateTime.parse(start), LocalDateTime.parse(end))
-              .map(_.asJson)
-          )
+        get {
+          parameters("start".as[String], "end".as[String]) { (start, end) =>
+            complete(
+              screeningsService
+                .listMoviesAndRoomsInTimeInterval(
+                  LocalDateTime.parse(start),
+                  LocalDateTime.parse(end)
+                )
+                .map(_.asJson)
+            )
+          }
         }
       }
     )

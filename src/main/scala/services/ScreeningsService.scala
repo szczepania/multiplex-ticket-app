@@ -18,27 +18,30 @@ class ScreeningsService(val databaseConnector: DatabaseConnector)
       screeningsTable.filter(_.id === id).result.headOption
     )
 
-  def listScreeningsInTimeInterval(
+  def listMoviesAndRoomsInTimeInterval(
       start: LocalDateTime,
       end: LocalDateTime
-  ): Future[Seq[(String, LocalDateTime)]] = {
-
+  ): Future[Seq[(String, String, LocalDateTime)]] = {
     val moviesTable = TableQuery[MoviesTable]
     val screeningsTable = TableQuery[ScreeningsTable]
+    val screeningsRoomTable = TableQuery[ScreeningRoomsTable]
 
     val query = moviesTable
       .join(screeningsTable)
       .on(_.id === _.movieId)
-      .filter { case (_, screening) =>
+      .join(screeningsRoomTable)
+      .on(_._2.screeningRoomId === _.id)
+      .filter { case ((_, screening), _) =>
         screening.screeningTime >= start && screening.screeningTime <= end
       }
-      .map { case (movie, screening) => (movie.title, screening.screeningTime) }
+      .map { case ((movie, screening), screeningRoom) =>
+        (movie.title, screeningRoom.name, screening.screeningTime)
+      }
 
-    val sortedQuery = query.sortBy { case (title, screeningTime) =>
-      (title, screeningTime)
+    val sortedQuery = query.sortBy { case (title, name, screeningTime) =>
+      (title, name, screeningTime)
     }
 
     databaseConnector.db.run(sortedQuery.result)
   }
-
 }
