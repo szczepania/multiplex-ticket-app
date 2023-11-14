@@ -1,23 +1,36 @@
-"# multiplex-ticket-app" 
+# multiplex-ticket-app
 
-GET http://localhost:8081/api/movies
+Seat reservation system for multiplex
 
-GET http://localhost:8081/api/movies/{$id}
+## How to install
 
-GET http://localhost:8081/api/screeningrooms
+## Available endpoints
 
-GET http://localhost:8081/api/screeningrooms/{$id}
+- **GET** http://localhost:8081/api/movies
 
-GET http://localhost:8081/api/screenings
+- **GET** http://localhost:8081/api/movies/{$id}
 
-GET http://localhost:8081/api/screenings/{$id}
+- **GET** http://localhost:8081/api/screeningrooms
 
-GET http://localhost:8081/api/seats
+- **GET** http://localhost:8081/api/screeningrooms/{$id}
 
-GET http://localhost:8081/api/seats/${id}
+- **GET** http://localhost:8081/api/screenings
 
-GET http://localhost:8081/api/screenings/time?start=${startTime}&end=${endTime}
+- **GET** http://localhost:8081/api/screenings/{$id}
 
-```
-example: time?start=2022-01-04T10:00:00&end=2022-01-04T13:59:59
-```
+- **GET** http://localhost:8081/api/seats
+
+- **GET** http://localhost:8081/api/seats/${id}
+
+- **GET** http://localhost:8081/api/screenings/time?start=${startTime}&end=${endTime}
+
+## Technologies and tools used
+
+- Scala
+- ScalaTest
+- Akka
+- Circe
+- Slick
+- PureConfig
+- PostgreSQL
+- Docker
