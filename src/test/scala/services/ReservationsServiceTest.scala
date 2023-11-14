@@ -5,6 +5,9 @@ import org.scalatest.matchers.should.Matchers
 import java.time.LocalDateTime
 import scala.concurrent.ExecutionContext.Implicits.global
 import connection.DatabaseConnector
+import model.Movies
+import java.time.LocalDate
+import model.Screenings
 
 class ReservationsServiceTest extends AnyFlatSpec with Matchers {
   val databaseConnector = new DatabaseConnector()
@@ -82,6 +85,22 @@ class ReservationsServiceTest extends AnyFlatSpec with Matchers {
       invalidShortName,
       invalidShortSurname
     ) shouldBe false
+  }
+
+  it should "select day and movie correctly" in {
+    val screeningsExample = new Screenings(1, 1, 1, LocalDateTime.now)
+    val screeningsTime = screeningsExample.screeningTime
+    val movie = new Movies(1, "Django")
+
+    val result = reservationsService.selectDayAndMovie(screeningsTime, movie)
+
+    result.map(screenings => {
+      screenings should not be empty
+      screenings.foreach(screening => {
+        screening.id shouldBe screeningsExample.movieId
+        screening.title shouldBe movie
+      })
+    })
   }
 
 }

@@ -8,9 +8,12 @@ import tables.{ScreeningsDataTable, ReservationsDataTable, SeatsDataTable}
 import java.time.LocalDateTime
 import config.Config
 import java.time.Duration
+import model.Movies
+import scala.concurrent.ExecutionContext
 
-class ReservationsService(val databaseConnector: DatabaseConnector)
-    extends ReservationsDataTable
+class ReservationsService(val databaseConnector: DatabaseConnector)(implicit
+    executionContext: ExecutionContext
+) extends ReservationsDataTable
     with ScreeningsDataTable
     with SeatsDataTable {
 
@@ -38,6 +41,19 @@ class ReservationsService(val databaseConnector: DatabaseConnector)
       "^[A-ZĄĆĘŁŃÓŚŹŻ][a-ząćęłńóśźż]{2,}(-[A-ZĄĆĘŁŃÓŚŹŻ][a-ząćęłńóśźż]*)?$".r
 
     namePattern.matches(name) && surnamePattern.matches(surname)
+  }
+
+  def selectDayAndMovie(
+      time: LocalDateTime,
+      movie: Movies
+  ): Future[Option[Movies]] = {
+    val query = screeningsTable
+      .filter(_.screeningTime === time)
+      .filter(_.movieId === movie.id)
+    databaseConnector.db.run(query.result.headOption).map {
+      case Some(screening) => Some(movie)
+      case None            => None
+    }
   }
 
 }
