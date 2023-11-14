@@ -1,4 +1,5 @@
 # multiplex-ticket-app
+![ci workflow](https://github.com/szczepania/multiplex-ticket-app/actions/workflows/ci.yml/badge.svg)
 
 Seat reservation system for multiplex
 
