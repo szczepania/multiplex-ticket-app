@@ -1,11 +1,11 @@
 package services
 
 import connection.DatabaseConnector
-import model.Screenings
 import slick.jdbc.PostgresProfile.api._
 import tables.ScreeningsDataTable
 import scala.concurrent.Future
 import java.time.LocalDateTime
+import model.Screenings
 
 class ScreeningsService(val databaseConnector: DatabaseConnector)
     extends ScreeningsDataTable {
@@ -24,10 +24,10 @@ class ScreeningsService(val databaseConnector: DatabaseConnector)
   ): Future[Seq[(String, LocalDateTime)]] = {
 
     val moviesTable = TableQuery[MoviesTable]
-    val screeningsTabe = TableQuery[ScreeningsTable]
+    val screeningsTable = TableQuery[ScreeningsTable]
 
     val query = moviesTable
-      .join(screeningsTabe)
+      .join(screeningsTable)
       .on(_.id === _.movieId)
       .filter { case (_, screening) =>
         screening.screeningTime >= start && screening.screeningTime <= end

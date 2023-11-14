@@ -39,4 +39,5 @@ class ReservationsService(val databaseConnector: DatabaseConnector)
 
     namePattern.matches(name) && surnamePattern.matches(surname)
   }
+
 }
