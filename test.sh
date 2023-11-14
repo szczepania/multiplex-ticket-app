@@ -30,3 +30,11 @@ curl -X POST "http://localhost:8081/api/reservations" -H "Content-Type: applicat
 }'
 echo
 echo
+
+echo "Return "Reservation time expired" when reservation time is over"
+curl -X POST "http://localhost:8081/api/reservations" -H "Content-Type: application/json" -d '{
+  "id": 27, 
+  "name": "Jan",
+  "surname": "Kowalski",
+  "seats": [{"row": 3, "column": 1, "id": 0, "ticket": "adult"}]
+}'
