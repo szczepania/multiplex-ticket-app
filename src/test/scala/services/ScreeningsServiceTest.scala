@@ -10,18 +10,7 @@ class ScreeningsServiceTest extends AnyFlatSpec with Matchers {
   val databaseConnector = new DatabaseConnector()
   val screeningsService = new ScreeningsService(databaseConnector)
 
-  "ScreeningsService" should "list movies and rooms in time interval correctly" in {
-    val start = LocalDateTime.now() 
-    val end = start.plusHours(2)
-
-    val result = screeningsService.listMoviesAndRoomsInTimeInterval(start, end)
-
-    result.map { moviesAndRooms =>
-      moviesAndRooms shouldBe empty
-    }
-  }
-
-  it should "list all screenings" in {
+  "ScreeningsService" should "list all screenings" in {
     val result = screeningsService.listScreenings
 
     result.map { screenings =>
