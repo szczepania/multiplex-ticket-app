@@ -5,6 +5,33 @@ Seat reservation system for multiplex
 
 ## How to install
 
+Prerequisites for running locally:
+- Java 1.8 at least
+- Docker
+- Postgres
+- sbt
+- bash
+
+1. Run docker
+```
+docker-compose up -d
+```
+
+2. Run application
+```
+sbt run
+```
+
+3. Run test.sh using Bash
+```
+bash test.sh
+```
+
+4. When you are done shut down the container
+```
+docker-compose down
+```
+
 ## Available endpoints
 
 - **GET** http://localhost:8081/api/movies
