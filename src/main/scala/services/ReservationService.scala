@@ -31,4 +31,12 @@ class ReservationsService(val databaseConnector: DatabaseConnector)
     val duration = Duration.between(reservationTime, screeningTime)
     duration.toMinutes >= 15
   }
+
+  def validateUserData(name: String, surname: String): Boolean = {
+    val namePattern = "^[A-ZĄĆĘŁŃÓŚŹŻ][a-ząćęłńóśźż]{2,}$".r
+    val surnamePattern =
+      "^[A-ZĄĆĘŁŃÓŚŹŻ][a-ząćęłńóśźż]{2,}(-[A-ZĄĆĘŁŃÓŚŹŻ][a-ząćęłńóśźż]*)?$".r
+
+    namePattern.matches(name) && surnamePattern.matches(surname)
+  }
 }

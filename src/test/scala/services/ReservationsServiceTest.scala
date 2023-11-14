@@ -47,4 +47,41 @@ class ReservationsServiceTest extends AnyFlatSpec with Matchers {
     result shouldBe false
   }
 
+  it should "validate user data correctly" in {
+    val validName = "Jan"
+    val validSurname = "Kowalski-Nowak"
+    val invalidName = "jan"
+    val invalidSurname = "kowalski-nowak"
+    val validNameWithPolishCharacters = "Przemysław"
+    val validSurnameWithPolishCharacters = "Przemysławski-Nowak"
+    val invalidShortName = "Ja"
+    val invalidShortSurname = "Ko"
+
+    reservationsService.validateUserData(validName, validSurname) shouldBe true
+    reservationsService.validateUserData(
+      invalidName,
+      validSurname
+    ) shouldBe false
+    reservationsService.validateUserData(
+      validName,
+      invalidSurname
+    ) shouldBe false
+    reservationsService.validateUserData(
+      invalidName,
+      invalidSurname
+    ) shouldBe false
+    reservationsService.validateUserData(
+      validNameWithPolishCharacters,
+      validSurnameWithPolishCharacters
+    ) shouldBe true
+    reservationsService.validateUserData(
+      validName,
+      validSurname
+    ) shouldBe true
+    reservationsService.validateUserData(
+      invalidShortName,
+      invalidShortSurname
+    ) shouldBe false
+  }
+
 }
