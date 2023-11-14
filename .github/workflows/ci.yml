@@ -28,8 +28,11 @@ jobs:
       - name: Run docker compose
         run: |
          docker-compose up -d
-         wait-for-it localhost:5432 -- echo "Postgres is up"
-         wait-for-it localhost:8081 -- echo "Backend is up"   
+         
+      - name: Sleep for 10 seconds
+        uses: jakejarvis/wait-action@master
+        with:
+          time: '10s'
 
       - name: Build and Test
         run: sbt -v +test
