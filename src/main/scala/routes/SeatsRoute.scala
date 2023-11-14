@@ -23,6 +23,11 @@ class SeatsRoute(SeatsService: SeatsService)(implicit
         get {
           complete(SeatsService.getSeatById(id).map(_.asJson))
         }
+      },
+      path("availability" / LongNumber) { id =>
+        get {
+          complete(SeatsService.checkSeatAvailability(id).map(_.asJson))
+        }
       }
     )
   }
