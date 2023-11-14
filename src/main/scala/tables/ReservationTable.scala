@@ -20,10 +20,12 @@ trait ReservationsDataTable {
 
     def screeningId = column[Long]("screening_id")
 
+    def price = column[BigDecimal]("price")
+
     def time = column[LocalDateTime]("time")
 
     override def * =
-      (id, username, usersurname, screeningId, time).<>(Reservations.tupled, Reservations.unapply)
+      (id, username, usersurname, price, screeningId, time).<>(Reservations.tupled, Reservations.unapply)
 
   }
 

@@ -39,4 +39,4 @@ final case class ReservationConfig(bookingTimeInMinutes: Int, prices: Prices)
 
 final case class HttpConnection(host: String, port: Int)
 
-final case class Prices(adult: Double, child: Double, student: Double)
+final case class Prices(adult: String, child: String, student: String)
