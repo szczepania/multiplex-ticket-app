@@ -1,7 +1,5 @@
 package services
 
-import services.{SeatsService, ScreeningsService}
-import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 import model.Reservations
 import connection.DatabaseConnector

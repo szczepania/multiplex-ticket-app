@@ -1,7 +1,6 @@
 package model
 
 import java.time.LocalDateTime
-import akka.protobufv3.internal.Value
 
 final case class Movies(id: Long, title: String)
 

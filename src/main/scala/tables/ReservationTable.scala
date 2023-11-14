@@ -3,7 +3,6 @@ package tables
 import connection.DatabaseConnector
 import model.Reservations
 import slick.jdbc.PostgresProfile.api._
-import tables.ScreeningsDataTable
 import java.time.LocalDateTime
 
 trait ReservationsDataTable {

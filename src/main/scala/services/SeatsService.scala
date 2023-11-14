@@ -1,7 +1,7 @@
 package services
 
 import connection.DatabaseConnector
-import model.{Seats, Reservations}
+import model.Seats
 import slick.jdbc.PostgresProfile.api._
 import tables.{SeatsDataTable, ReservationsDataTable}
 

@@ -3,7 +3,6 @@ package tables
 import connection.DatabaseConnector
 import model.Seats
 import slick.jdbc.PostgresProfile.api._
-import slick.lifted.ProvenShape
 
 trait SeatsDataTable {
 

@@ -6,11 +6,8 @@ import slick.jdbc.PostgresProfile.api._
 import tables.MovieDataTable
 
 import scala.concurrent.Future
-import java.time.LocalDateTime
 import scala.concurrent.ExecutionContext
 import tables.ScreeningsDataTable
-import model.Screenings
-import java.time.LocalTime
 
 class MoviesService(val databaseConnector: DatabaseConnector)(implicit
     executionContext: ExecutionContext

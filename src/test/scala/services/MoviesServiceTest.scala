@@ -2,7 +2,6 @@ package services
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
-import java.time.LocalDateTime
 import scala.concurrent.ExecutionContext.Implicits.global
 import connection.DatabaseConnector
 

@@ -4,8 +4,6 @@ import connection.DatabaseConnector
 import model.Screenings
 import slick.jdbc.PostgresProfile.api._
 import slick.lifted.TableQuery
-import tables.{MovieDataTable, ScreeningRoomsDataTable}
-import java.time.LocalTime
 import java.time.LocalDateTime
 
 trait ScreeningsDataTable extends MovieDataTable with ScreeningRoomsDataTable {

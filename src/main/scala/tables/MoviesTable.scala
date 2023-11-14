@@ -4,8 +4,6 @@ import connection.DatabaseConnector
 import model.Movies
 import slick.jdbc.PostgresProfile.api._
 
-import java.time.LocalTime
-
 trait MovieDataTable {
 
   val databaseConnector: DatabaseConnector
