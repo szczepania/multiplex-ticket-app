@@ -75,3 +75,14 @@ Example POST:
 - PureConfig
 - PostgreSQL
 - Docker
+
+## Additional thoughts regarding this task
+
+- should screening be shown even if room is all booked?
+- what about reservation that has not been submitted? is it comming back to the stack?
+- adding a screening could be considered
+- what about doing reservation with multiple seats in different rows?
+
+## TO DO
+
+- not allow to do reservation with single seat left over in a row - I faced some issues here, would appreciate any suggestions
