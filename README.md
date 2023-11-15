@@ -54,6 +54,16 @@ docker-compose down
 
 - **POST** http://localhost:8081/api/reservations
 
+Example POST:
+
+```
+{
+  "id": 1, 
+  "name": "Anna",
+  "surname": "Szczepańska-Kowalska",
+  "seats": [{"row": 3, "column": 1, "id": 0, "ticket": "adult"}, {"row": 3, "column": 2, "id": 1, "ticket": "student"}, {"row": 3, "column": 3, "id": 2, "ticket": "child"}, {"row": 3, "column": 4, "id": 3, "ticket": "child"}]
+}
+```
 
 ## Technologies and tools used
 

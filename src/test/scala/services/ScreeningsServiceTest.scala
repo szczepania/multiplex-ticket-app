@@ -33,7 +33,6 @@ class ScreeningsServiceTest extends AnyFlatSpec with Matchers {
     val result = screeningsService.listMoviesAndRoomsInTimeInterval(start, end)
 
     result.map { moviesAndRooms =>
-      println(moviesAndRooms)
       moviesAndRooms shouldBe empty
     }
   }

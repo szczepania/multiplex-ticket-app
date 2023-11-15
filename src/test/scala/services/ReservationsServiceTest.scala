@@ -108,8 +108,8 @@ class ReservationsServiceTest extends AnyFlatSpec with Matchers {
   it should "make reservation correctly" in {
     val seats =
       Seq(BookedSeat(1, 1, 1L, "adult"), BookedSeat(1, 2, 2L, "child"))
-    val name = "John"
-    val surname = "Doe"
+    val name = "Anna"
+    val surname = "Szczepańska-Kowalska"
 
     val result = reservationsService.makeReservation(
       new Reservation(1, name, surname, seats)
