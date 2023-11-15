@@ -21,20 +21,32 @@ curl -X POST "http://localhost:8081/api/reservations" -H "Content-Type: applicat
 echo
 echo
 
-echo "Return "Invalid user data" when choosing already reserved seat"
-curl -X POST "http://localhost:8081/api/reservations" -H "Content-Type: application/json" -d '{
-  "id": 1, 
-  "name": "Łukasz",
-  "surname": "Szczepanik",
-  "seats": [{"row": 3, "column": 1, "id": 0, "ticket": "adult"}]
-}'
-echo
-echo
-
-echo "Return "Reservation time expired" when reservation time is over"
+echo "Not allow to do reservation when reservation time is over"
 curl -X POST "http://localhost:8081/api/reservations" -H "Content-Type: application/json" -d '{
   "id": 27, 
   "name": "Jan",
   "surname": "Kowalski",
   "seats": [{"row": 3, "column": 1, "id": 0, "ticket": "adult"}]
 }'
+echo
+echo
+
+echo "Not allow to do reservation without providing picked seats" 
+curl -X POST "http://localhost:8081/api/reservations" -H "Content-Type: application/json" -d '{
+  "id": 1, 
+  "name": "Anna",
+  "surname": "Szczepanik",
+  "seats": []
+}'
+echo
+echo
+
+echo "Not allow to do reservation when name or surname is invalid" 
+curl -X POST "http://localhost:8081/api/reservations" -H "Content-Type: application/json" -d '{
+  "id": 1, 
+  "name": "An",
+  "surname": "Sz",
+  "seats": [{"row": 3, "column": 1, "id": 0, "ticket": "adult"}]
+}'
+echo
+echo
