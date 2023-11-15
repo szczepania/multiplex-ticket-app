@@ -79,64 +79,72 @@ class ReservationsService(
   def makeReservation(
       reservation: Reservation
   ): Future[Either[String, Summary]] = {
-    val query =
-      screeningsService.getScreeningById(reservation.id).flatMap { screening =>
-        seatsService.checkSeatAvailability(reservation.id).map {
-          availableSeats =>
-            (screening, availableSeats)
+
+    if (reservation.seats.isEmpty) {
+      return Future(Left("No seats were selected"))
+    } else {
+      val query =
+        screeningsService.getScreeningById(reservation.id).flatMap {
+          screening =>
+            seatsService.checkSeatAvailability(reservation.id).map {
+              availableSeats =>
+                (screening, availableSeats)
+            }
         }
-      }
 
-    query.map { data =>
-      val screening = data._1
-      val availableSeats = data._2
+      query.map { data =>
+        val screening = data._1
+        val availableSeats = data._2
 
-      val reservationTime = LocalDateTime.now()
-      val screeningTime = screening.get.screeningTime
-      val paymentTime = checkReservationTime(screeningTime, reservationTime)
+        val reservationTime = LocalDateTime.now()
+        val screeningTime = screening.get.screeningTime
+        val paymentTime = checkReservationTime(screeningTime, reservationTime)
 
-      val name = reservation.name
-      val surname = reservation.surname
-      val seats = reservation.seats
+        val name = reservation.name
+        val surname = reservation.surname
+        val seats = reservation.seats
 
-      val validUserData = validateUserData(name, surname)
+        val validUserData = validateUserData(name, surname)
 
-      if (validUserData) {
-        if (paymentTime) {
-          if (seats.length <= availableSeats.length) {
-            val price =
-              seats.map(seat => mapTicketPriceToBigDecimal(seat.ticket)).sum
-            val reservation = Reservations(
-              0,
-              name,
-              surname,
-              price,
-              screening.get.id,
-              reservationTime
-            )
+        if (validUserData) {
+          if (paymentTime) {
+            if (seats.length <= availableSeats.length) {
+              val price =
+                seats.map(seat => mapTicketPriceToBigDecimal(seat.ticket)).sum
+              val reservation = Reservations(
+                0,
+                name,
+                surname,
+                price,
+                screening.get.id,
+                reservationTime
+              )
 
-            val query = (reservationsTable returning reservationsTable.map(
-              _.id
-            )) += reservation
+              val query = (reservationsTable returning reservationsTable.map(
+                _.id
+              )) += reservation
 
-            val reservationId = reservation.id
+              val reservationId = reservation.id
 
-            val seatsToBook =
-              seats.map(seat => Seats(0, reservationId, seat.row, seat.column))
+              val seatsToBook =
+                seats.map(seat =>
+                  Seats(0, reservationId, seat.row, seat.column)
+                )
 
-            val reserved = seatsTable ++= seatsToBook
+              val reserved = seatsTable ++= seatsToBook
 
-            databaseConnector.db.run(reserved)
+              databaseConnector.db.run(reserved)
 
-            Right(Summary(name, surname, price, seatsToBook))
+              Right(Summary(name, surname, price, seatsToBook))
+            } else {
+              Left("Not enough seats available")
+            }
           } else {
-            Left("Not enough seats available")
+            Left("Reservation time expired")
           }
         } else {
-          Left("Reservation time expired")
+          Left("Invalid user data")
         }
-      } else {
-        Left("Invalid user data")
       }
     }
   }
