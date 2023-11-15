@@ -23,9 +23,6 @@ class Config {
   val reservationConfig = extractConfig.get.reservation
 
   val prices = reservationConfig.prices
-  val adultPrice = prices.adult
-  val childPrice = prices.child
-  val studentPrice = prices.student
 
   val bookingTimeInMinutes = reservationConfig.bookingTimeInMinutes
 }

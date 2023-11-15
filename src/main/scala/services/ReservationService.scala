@@ -81,7 +81,7 @@ class ReservationsService(
   ): Future[Either[String, Summary]] = {
 
     if (reservation.seats.isEmpty) {
-      return Future(Left("No seats were selected"))
+      Future(Left("No seats were selected"))
     } else {
       val query =
         screeningsService.getScreeningById(reservation.id).flatMap {
