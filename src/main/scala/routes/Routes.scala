@@ -8,14 +8,20 @@ import scala.concurrent.ExecutionContext
 import services.SeatsService
 import services.ReservationsService
 
-class Routes(movies: MoviesService, screeningRooms: ScreeningRoomsService, screenings: ScreeningsService, seats: SeatsService, reservations: ReservationsService)(
-    implicit executionContext: ExecutionContext
+class Routes(
+    movies: MoviesService,
+    screeningRooms: ScreeningRoomsService,
+    screenings: ScreeningsService,
+    seats: SeatsService,
+    reservations: ReservationsService
+)(implicit
+    executionContext: ExecutionContext
 ) {
-  val moviesRouter = new MoviesRoute(movies)
-  val screeningRoomsRouter = new ScreeningRoomsRoute(screeningRooms)
-  val screeningsRouter = new ScreeningsRoute(screenings)
-  val seatsRouter = new SeatsRoute(seats)
-  val reservationsRouter = new ReservationsRoute(reservations)
+  private val moviesRouter = new MoviesRoute(movies)
+  private val screeningRoomsRouter = new ScreeningRoomsRoute(screeningRooms)
+  private val screeningsRouter = new ScreeningsRoute(screenings)
+  private val seatsRouter = new SeatsRoute(seats)
+  private val reservationsRouter = new ReservationsRoute(reservations)
 
   val route: Route =
     concat(

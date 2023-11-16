@@ -6,7 +6,8 @@ import java.time.LocalDateTime
 import scala.concurrent.ExecutionContext.Implicits.global
 import connection.DatabaseConnector
 import java.time.LocalDate
-import model.{BookedSeat, Screenings, Movies, Reservation}
+import model.{Screenings, Movies}
+import services.reservationsConfig.{Summary, Reservation, BookedSeat}
 
 class ReservationsServiceTest extends AnyFlatSpec with Matchers {
   val databaseConnector = new DatabaseConnector()
