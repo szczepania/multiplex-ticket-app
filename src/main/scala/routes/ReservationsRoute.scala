@@ -7,7 +7,7 @@ import io.circe.generic.auto._
 import io.circe.syntax._
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
-import model.Reservation
+import services.reservationsConfig.Reservation
 
 class ReservationsRoute(reservationsService: ReservationsService)(implicit
     executionContext: ExecutionContext

@@ -12,9 +12,10 @@ import tables.{
 import java.time.LocalDateTime
 import config.Config
 import java.time.Duration
-import model.{Movies, Seats, Reservations, Summary, Reservation, BookedSeat}
+import model.{Movies, Seats, Reservations}
 import scala.concurrent.ExecutionContext
 import services.ScreeningsService
+import reservationsConfig.{Reservation, Summary}
 
 class ReservationsService(
     val databaseConnector: DatabaseConnector,
