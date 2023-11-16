@@ -11,4 +11,4 @@ final case class Summary(
 
 final case class Reservation(id: Long, name: String, surname: String, seats: Seq[BookedSeat])
 
-final case class BookedSeat(row: Int, column: Int, id: Long, ticket: String)
+final case class BookedSeat(row: Int, column: Int, id: Long, ticketType: String)

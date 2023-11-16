@@ -93,9 +93,7 @@ class ReservationsService(
             }
         }
 
-      query.map { data =>
-        val screening = data._1
-        val availableSeats = data._2
+      query.map { case (screening, availableSeats) =>
 
         val reservationTime = LocalDateTime.now()
         val screeningTime = screening.get.screeningTime
@@ -111,7 +109,9 @@ class ReservationsService(
           if (paymentTime) {
             if (seats.length <= availableSeats.length) {
               val price =
-                seats.map(seat => mapTicketPriceToBigDecimal(seat.ticket)).sum
+                seats
+                  .map(seat => mapTicketPriceToBigDecimal(seat.ticketType))
+                  .sum
               val reservation = Reservations(
                 0,
                 name,
@@ -120,10 +120,6 @@ class ReservationsService(
                 screening.get.id,
                 reservationTime
               )
-
-              val query = (reservationsTable returning reservationsTable.map(
-                _.id
-              )) += reservation
 
               val reservationId = reservation.id
 
@@ -144,7 +140,7 @@ class ReservationsService(
             Left("Reservation time expired")
           }
         } else {
-          Left("Invalid user data")
+          Left("Wrong name or surname format")
         }
       }
     }

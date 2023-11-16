@@ -16,7 +16,7 @@ curl -X POST "http://localhost:8081/api/reservations" -H "Content-Type: applicat
   "id": 1, 
   "name": "Anna",
   "surname": "Szczepanik",
-  "seats": [{"row": 3, "column": 1, "id": 0, "ticket": "adult"}, {"row": 3, "column": 2, "id": 1, "ticket": "student"}, {"row": 3, "column": 3, "id": 2, "ticket": "child"}]
+  "seats": [{"row": 3, "column": 1, "id": 0, "ticketType": "adult"}, {"row": 3, "column": 2, "id": 1, "ticketType": "student"}, {"row": 3, "column": 3, "id": 2, "ticketType": "child"}]
 }'
 echo
 echo
@@ -26,7 +26,7 @@ curl -X POST "http://localhost:8081/api/reservations" -H "Content-Type: applicat
   "id": 27, 
   "name": "Jan",
   "surname": "Kowalski",
-  "seats": [{"row": 3, "column": 1, "id": 0, "ticket": "adult"}]
+  "seats": [{"row": 3, "column": 1, "id": 0, "ticketType": "adult"}]
 }'
 echo
 echo
@@ -46,7 +46,7 @@ curl -X POST "http://localhost:8081/api/reservations" -H "Content-Type: applicat
   "id": 1, 
   "name": "An",
   "surname": "Sz",
-  "seats": [{"row": 3, "column": 1, "id": 0, "ticket": "adult"}]
+  "seats": [{"row": 3, "column": 1, "id": 0, "ticketType": "adult"}]
 }'
 echo
 echo
