@@ -9,18 +9,18 @@ class Config {
   implicit def hint[A]: ProductHint[A] =
     ProductHint[A](ConfigFieldMapping(CamelCase, CamelCase))
 
-  val serviceConfig =
+  private val serviceConfig =
     ConfigSource.default.at("multiplexTicketApp").load[ServiceConf]
 
-  val extractConfig = serviceConfig.left
+  private val extractConfig = serviceConfig.left
     .map(err => new ConfigReaderException[Config](err))
     .toTry
 
-  val httpConnectionConfig = extractConfig.get.httpConnection
+  private val httpConnectionConfig = extractConfig.get.httpConnection
   val host = httpConnectionConfig.host
   val port = httpConnectionConfig.port
 
-  val reservationConfig = extractConfig.get.reservation
+  private val reservationConfig = extractConfig.get.reservation
 
   val prices = reservationConfig.prices
 

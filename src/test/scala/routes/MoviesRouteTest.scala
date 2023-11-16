@@ -13,7 +13,7 @@ class MovieRouteSpec extends AnyWordSpec with Matchers with ScalatestRouteTest {
     "return OK for GET requests to the movies path" in {
       val databaseConnector = new DatabaseConnector()
       val movieService = new MoviesService(databaseConnector)
-      val movieRoute = new MovieRoute(movieService)(ExecutionContext.global)
+      val movieRoute = new MoviesRoute(movieService)(ExecutionContext.global)
 
       Get("/movies") ~> movieRoute.route ~> check {
         status shouldBe StatusCodes.OK

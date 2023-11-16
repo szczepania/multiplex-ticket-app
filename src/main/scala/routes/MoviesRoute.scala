@@ -8,7 +8,7 @@ import io.circe.syntax._
 import services.MoviesService
 import scala.concurrent.ExecutionContext
 
-class MovieRoute(movieService: MoviesService)(implicit
+class MoviesRoute(movieService: MoviesService)(implicit
     executionContext: ExecutionContext
 ) extends FailFastCirceSupport {
 

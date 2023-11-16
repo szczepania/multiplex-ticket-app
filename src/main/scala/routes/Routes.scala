@@ -11,7 +11,7 @@ import services.ReservationsService
 class Routes(movies: MoviesService, screeningRooms: ScreeningRoomsService, screenings: ScreeningsService, seats: SeatsService, reservations: ReservationsService)(
     implicit executionContext: ExecutionContext
 ) {
-  val moviesRouter = new MovieRoute(movies)
+  val moviesRouter = new MoviesRoute(movies)
   val screeningRoomsRouter = new ScreeningRoomsRoute(screeningRooms)
   val screeningsRouter = new ScreeningsRoute(screenings)
   val seatsRouter = new SeatsRoute(seats)
